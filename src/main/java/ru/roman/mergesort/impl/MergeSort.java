@@ -7,26 +7,47 @@ import ru.roman.mergesort.Sort;
  */
 public class MergeSort implements Sort {
     private int[] copyArray;
+    private int[] resultArray;
 
     @Override
     public void sort(int[] array) {
-        copyArray = array;
+        resultArray = array;
+        copyArray =  new int[array.length];
         int lowerIndex = 0;
         int higherIndex = array.length - 1;
         mergeSort(lowerIndex, higherIndex);
     }
 
     private void mergeSort(int lowerIndex, int higherIndex) {
-        int middle = higherIndex / lowerIndex;
+        if (lowerIndex == higherIndex) {
+            return;
+        }
+        int middle = (higherIndex + lowerIndex) / 2;
         mergeSort(lowerIndex, middle);
         mergeSort(middle + 1, higherIndex);
         merge(lowerIndex, middle, higherIndex);
     }
 
     private void merge(int lowerIndex, int middle, int higherIndex) {
+        for (int i = lowerIndex; i <= higherIndex; i++) {
+            copyArray[i] = resultArray[i];
+        }
         int totalCounter = lowerIndex;
-        int i = lowerIndex;
-        int j = middle + 1;
-        
+        int left = lowerIndex;
+        int right = middle + 1;
+        while (left <= middle && right <= higherIndex) {
+            if (copyArray[left] <= copyArray[right]) {
+                resultArray[totalCounter] = copyArray[left];
+                left++;
+            } else {
+                resultArray[totalCounter] = copyArray[right];
+                right++;
+            }
+            totalCounter++;
+        }
+        while (left <= middle) {
+            resultArray[totalCounter] = copyArray[left];
+            left++;
+        }
     }
 }
