@@ -47,6 +47,7 @@ public class MergeSort implements Sort {
         }
         while (left <= middle) {
             resultArray[totalCounter] = copyArray[left];
+            totalCounter++;
             left++;
         }
     }

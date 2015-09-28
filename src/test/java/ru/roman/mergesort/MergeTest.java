@@ -13,7 +13,7 @@ public class MergeTest {
 
     @Test
     public void testSort() {
-        int[] array = {8, 0 ,1,5,2,3,2,1};
+        int[] array = {8, 9 ,1,0,3,5,6,7,8,4};
         int[] copyArray = new int[array.length];
         for (int i = 0; i < array.length; i++) {
             copyArray[i] = array[i];
