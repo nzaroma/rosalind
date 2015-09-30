@@ -38,4 +38,32 @@ public class DijkstraTest {
             Assert.assertEquals(rightData[i], resultData[i]);
         }
     }
+
+    @Test
+    public void testAnotherRoute() {
+        int[][] vertexRelations = new int[][]{
+                {1, 2, 10},
+                {1, 3, 30},
+                {1, 4, 50},
+                {1, 5, 10},
+                {3, 5, 10},
+                {4, 2, 40},
+                {4, 3, 20},
+                {5, 1, 10},
+                {5, 3, 10},
+                {5, 4, 30},
+        };
+        int size = 5;
+
+        FindRoute route = new DijkstraAlgo();
+        int[] resultData = route.process(size, vertexRelations);
+        System.out.println(Arrays.toString(resultData));
+
+        int[] rightData = new int[] {0, 10, 20, 40, 10};
+        System.out.println(Arrays.toString(rightData));
+
+        for (int i = 0; i < resultData.length; i++) {
+            Assert.assertEquals(rightData[i], resultData[i]);
+        }
+    }
 }
