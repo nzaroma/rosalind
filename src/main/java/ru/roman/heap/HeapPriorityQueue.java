@@ -2,6 +2,8 @@ package ru.roman.heap;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.util.Arrays;
+
 /**
  * Created by Roman on 01.10.2015.
  */
@@ -10,24 +12,33 @@ public class HeapPriorityQueue implements Heap {
     private int size;
 
     public HeapPriorityQueue(int[] array) {
-        size = array.length + 1;
-        this.array = new int[size];
-        for (int i = 0; i < array.length; i++) {
+        size = array.length;
+        this.array = new int[size+1];
+        for (int i = 0; i < size; i++) {
             this.array[i + 1] = array[i]; //[0] we leave empty get rid of normalization
         }
         //sink elements
+        for (int i = size/2; i >= 1 ; i--) {
+            sink(i);
+        }
     }
 
     private void sink(int k) {
-        //if k*2 exists
-        //if k*2 + 1 exists
-        //find min^
-        // if array[k] < min -> swap(k, min[index])
-        //k = index
+        while (2 * k <= size) {
+            int j = 2 * k;
+            if (j < size && array[j] < array[j + 1]) {
+                j++;
+            }
+            if (array[j] < array[k]) {
+                break;
+            }
+            swap(k, j);
+            k = j;
+        }
     }
 
     private void swim(int k) {
-        while (k < 1 && array[k] < array[k / 2]) {
+        while (k > 1 && array[k] < array[k / 2]) {
             swap(k, k / 2);
             k = k / 2;
         }
@@ -68,5 +79,10 @@ public class HeapPriorityQueue implements Heap {
     @Override
     public int size() {
         return size;
+    }
+
+    @Override
+    public String toString() {
+        return Arrays.toString(array);
     }
 }
