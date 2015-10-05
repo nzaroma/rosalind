@@ -3,6 +3,7 @@ package ru.roman.heap;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.Arrays;
+import java.util.NoSuchElementException;
 
 /**
  * Created by Roman on 01.10.2015.
@@ -69,15 +70,21 @@ public class HeapPriorityQueue implements Heap {
 
     @Override
     public int max() {
-        throw new NotImplementedException();
+        if (!isEmpty()) {
+            return array[1];
+        }
+        throw new NoSuchElementException("Queue is empty");
     }
 
     @Override
     public int delMax() {
         //swap with last element
+        swap(1, size);
         //delete last element
+        size--;
         //sink first element
-        throw new NotImplementedException();
+        sink(1);
+        return array[1];
     }
 
     @Override

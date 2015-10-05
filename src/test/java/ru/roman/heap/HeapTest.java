@@ -1,5 +1,6 @@
 package ru.roman.heap;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -25,5 +26,21 @@ public class HeapTest {
         System.out.println(heap);
         heap.insert(9);
         System.out.println(heap);
+    }
+
+    @Test
+    public void testMax() {
+        int[] data = new int[]{7, 9, 2, 6};
+        Heap heap = new HeapPriorityQueue(data);
+        int result = heap.max();
+        Assert.assertEquals(9, result);
+    }
+
+    @Test
+    public void testDelMax() {
+        int[] data = new int[]{7, 9, 2, 6};
+        Heap heap = new HeapPriorityQueue(data);
+        int result = heap.delMax();
+        Assert.assertEquals(7, result);
     }
 }
