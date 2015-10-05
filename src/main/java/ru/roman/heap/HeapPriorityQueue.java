@@ -15,7 +15,7 @@ public class HeapPriorityQueue implements Heap {
         size = array.length;
         this.array = new int[size+1];
         for (int i = 0; i < size; i++) {
-            this.array[i + 1] = array[i]; //[0] we leave empty get rid of normalization
+            this.array[i + 1] = array[i]; //[0] we leave empty to get rid of normalization
         }
         //sink elements
         for (int i = size/2; i >= 1 ; i--) {
@@ -38,7 +38,7 @@ public class HeapPriorityQueue implements Heap {
     }
 
     private void swim(int k) {
-        while (k > 1 && array[k] < array[k / 2]) {
+        while (k > 1 && array[k] > array[k / 2]) {
             swap(k, k / 2);
             k = k / 2;
         }
@@ -53,9 +53,18 @@ public class HeapPriorityQueue implements Heap {
     @Override
     public void insert(int a) {
         //resize array
+        if (array.length == size + 1) {
+            size++;
+            int[] tempArray = new int[size + 1];
+            for (int i = 0; i < array.length; i++) {
+                tempArray[i] = array[i];
+            }
+            array = tempArray;
+        }
         //add to the end
+        array[size] =  a;
         //swim it up
-        throw new NotImplementedException();
+        swim(size);
     }
 
     @Override
